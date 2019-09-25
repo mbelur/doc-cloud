@@ -1962,23 +1962,23 @@
      </listitem>
      <listitem>
       <para>
-       <systemitem>heat-server</systemitem> (<systemitem>heat</systemitem>
-       &barcl;)
+       <systemitem>heat-server</systemitem>
+       (<systemitem>heat</systemitem> &barcl;)
       </para>
      </listitem>
      <listitem>
       <para>
-       <systemitem>octavia-api</systemitem> (<systemitem>octavia</systemitem>
-       &barcl;)
+       <systemitem>octavia-api</systemitem>
+       (<systemitem>octavia</systemitem> &barcl;)
       </para>
      </listitem>
      <listitem>
       <para>
-       <systemitem>octavia-backend</systemitem> (<systemitem>octavia</systemitem>
-       &barcl;)
+       <systemitem>octavia-backend</systemitem>
+       (<systemitem>octavia</systemitem> &barcl;)
       </para>
      </listitem>
-    </itemizedlist
+     </itemizedlist>
     <para>
      Instead of assigning these roles to individual cloud nodes, you can
      assign them to one or several &ha; clusters. &productname; will
