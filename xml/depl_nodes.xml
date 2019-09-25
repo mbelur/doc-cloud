@@ -7,16 +7,6 @@
 <!-- Converted by suse-upgrade version 1.1 -->
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="cha-depl-ostack">
  <title>Deploying the &ostack; Services</title>
- <info>
-  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
-   <dm:maintainer>fs</dm:maintainer>
-   <dm:status>editing</dm:status>
-   <dm:deadline/>
-   <dm:priority/>
-   <dm:translation>no</dm:translation>
-   <dm:languages/>
-  </dm:docmanager>
- </info>
  <para>
   After the nodes are installed and configured you can start deploying the
   &ostack; components to finalize the installation. The components need to be
@@ -3828,7 +3818,6 @@ openstack router add subnet <replaceable>router2</replaceable> priv-net-sub</scr
        Existing <literal>nova-compute-*</literal> nodes can be changed in a
        production &cloud; without service interruption. You need to
        <quote>evacuate</quote>
-<!-- (see TODO) -->
        the node, re-assign a new <literal>nova-compute</literal> role via the
        &o_comp; &barcl; and <guimenu>Apply</guimenu> the change.
        <guimenu>nova-compute-vmware</guimenu> can only be deployed on a single
