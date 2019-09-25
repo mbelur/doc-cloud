@@ -1978,6 +1978,7 @@
        &barcl;)
       </para>
      </listitem>
+    </itemizedlist
     <para>
      Instead of assigning these roles to individual cloud nodes, you can
      assign them to one or several &ha; clusters. &productname; will
