@@ -94,7 +94,7 @@
 <!-- Neutrum -->
   <listitem>
    <para>
-    <xref linkend="sec-depl-ostack-quantum" xrefstyle="select:title nopage"/>
+    <xref linkend="sec-depl-ostack-neutron" xrefstyle="select:title nopage"/>
    </para>
   </listitem>
 <!-- nova -->
@@ -143,6 +143,12 @@
   <listitem>
    <para>
     <xref linkend="sec-depl-ostack-monasca" xrefstyle="select:title nopage"/>
+   </para>
+  </listitem>
+<!-- lbaas -->
+  <listitem>
+   <para>
+    <xref linkend="sec-depl-ostack-octavia" xrefstyle="select:title nopage"/>
    </para>
   </listitem>
  </orderedlist>
@@ -2918,7 +2924,7 @@ host1:/srv/nfs/share1 /mnt/nfs/share1 -o rsize=8192,wsize=8192,timeo=14,intr
    </para>
   </sect2>
  </sect1>
- <sect1 xml:id="sec-depl-ostack-quantum">
+ <sect1 xml:id="sec-depl-ostack-neutron">
   <title>Deploying &o_netw;</title>
 
   <para>
@@ -5978,6 +5984,82 @@ monitoring</guimenu>
     </imageobject>
    </mediaobject>
   </figure>
+ </sect1>
+
+ <sect1 xml:id="sec-depl-ostack-octavia">
+  <title>Deploying Octavia</title>
+  <para>
+    &octavia; provides &productname; Load Balancing as a Service (LBaaS). It is
+    used to manage a fleet of virtual machines, containers, or bare metal
+    servers—collectively known as amphorae — which it spins up on demand.
+    In accomplishing its role, Octavia makes use of other OpenStack
+    projects:</para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Nova - For managing amphora lifecycle and spinning up compute
+          resources on demand.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Neutron - For network connectivity between amphorae, tenant
+          environments, and external networks.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Barbican - For managing TLS certificates and credentials, when TLS
+          session termination is configured on the amphorae.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Keystone - For authentication against the Octavia API, and for
+          Octavia to authenticate with other OpenStack projects.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Glance - For storing the amphora virtual machine image.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Oslo - For communication between Octavia controller components,
+          making Octavia work within the standard OpenStack framework and
+          review system, and project code structure.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Taskflow - Is technically part of Oslo; however, Octavia makes
+          extensive use of this job flow system when orchestrating back-end
+          service configuration and management.
+        </para>
+      </listitem>
+    <itemizedlist>
+  <para>
+    The &octavia; barclamp:
+  </para>
+  <variablelist>
+    <varlistentry>
+      <term>octavia-api</term>
+      <listitem>
+        <para>
+          The &octavia; API.
+        </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>octavia-backend</term>
+      <listitem>
+       <para>
+        &octavia; worker, health-manager and house-keeping.
+        </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
  </sect1>
 
 <sect1 xml:id="sec-depl-ostack-ironic">
