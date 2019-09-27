@@ -253,7 +253,7 @@
 
   <para>
    We recommend deploying certain parts of &netw; (&o_netw;) on separate nodes for production clouds. See
-   <xref linkend="sec-depl-ostack-quantum"/> for details.
+   <xref linkend="sec-depl-ostack-neutron"/> for details.
   </para>
 
   <para>

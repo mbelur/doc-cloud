@@ -5985,7 +5985,6 @@ monitoring</guimenu>
    </mediaobject>
   </figure>
  </sect1>
-
  <sect1 xml:id="sec-depl-ostack-octavia">
   <title>Deploying Octavia</title>
   <para>
@@ -6038,7 +6037,7 @@ monitoring</guimenu>
           service configuration and management.
         </para>
       </listitem>
-    <itemizedlist>
+    </itemizedlist>
   <para>
     The &octavia; barclamp:
   </para>
