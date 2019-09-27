@@ -5986,7 +5986,7 @@ monitoring</guimenu>
   </figure>
  </sect1>
  <sect1 xml:id="sec-depl-ostack-octavia">
-  <title>Deploying Octavia</title>
+  <title>Deploying octavia</title>
   <para>
     &octavia; provides &productname; Load Balancing as a Service (LBaaS). It is
     used to manage a fleet of virtual machines, containers, or bare metal
@@ -6039,7 +6039,7 @@ monitoring</guimenu>
       </listitem>
     </itemizedlist>
   <para>
-    The &octavia; barclamp:
+    The &octavia; component consists of following roles:
   </para>
   <variablelist>
     <varlistentry>
@@ -6059,12 +6059,17 @@ monitoring</guimenu>
       </listitem>
     </varlistentry>
   </variablelist>
+  <para>In neutron barclamp, the user has to select Load Balancer as a
+    Service to use &octavia;. &octavia; is not automatically deployed
+    in &crow;.</para>
+<!-- Looks like I should put this in here now: https://jira.suse.com/browse/SOC-8726?focusedCommentId=933756&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-933756
+But I want to confirm with Matt Oliver first. AS -->
  </sect1>
 
 <sect1 xml:id="sec-depl-ostack-ironic">
  <title>Deploying &o_iron; (optional)</title>
  <para>
-  &o_iron; is the &ostack; bare metal service for provisioning physical
+  Ironic is the &ostack; bare metal service for provisioning physical
   machines. Refer to the &ostack; <link
   xlink:href="https://docs.openstack.org/ironic/latest/">developer and admin
   manual</link> for information on drivers, and administering &o_iron;.
