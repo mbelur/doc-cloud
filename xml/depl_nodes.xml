@@ -5990,9 +5990,105 @@ monitoring</guimenu>
   <para>
     &octavia; provides &productname; Load Balancing as a Service (LBaaS). It is
     used to manage a fleet of virtual machines, containers, or bare metal
-    servers—collectively known as amphorae — which it spins up on demand.
-    In accomplishing its role, Octavia makes use of other OpenStack
-    projects:</para>
+    servers—collectively known as amphorae — which it spins up on demand.</para>
+  <para>The &ostack; &octavia; team has created a glossary of terms as they
+    are defined and used within the context of the &octavia; project and
+    Neutron LBaaS version 2. This glossary is available here:  <link
+    xlink:href="https://docs.openstack.org/octavia/latest/reference/glossary.html">Octavia Glossary</link>.</para>
+  <para>
+    &octavia; consists of the following major components:
+  </para>
+  <variablelist>
+   <varlistentry>
+    <term>amphorae</term>
+    <listitem>
+     <para>
+       Amphorae are the individual virtual machines, containers, or bare metal
+       servers that accomplish the delivery of load balancing services to
+       tenant application environments.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term>controller</term>
+    <listitem>
+     <para>
+       The Controller is the brains of &octavia;. It consists of five
+       sub-components, which are individual daemons. They can be run on
+       separate back-end infrastructure if desired:
+     </para>
+     <itemizedlist>
+       <listitem>
+         <para>
+           API Controller - As the name implies, this subcomponent
+           runs &octavia;’s API. It takes API requests, performs simple
+           sanitizing on them, and ships them off to the controller worker
+           over the Oslo messaging bus.
+         </para>
+       </listitem>
+         <para>
+           API Controller - As the name implies, this subcomponent
+           runs &octavia;’s API. It takes API requests, performs simple
+           sanitizing on them, and ships them off to the controller worker
+           over the Oslo messaging bus.
+         </para>
+       </listitem>
+       </listitem>
+         <para>
+           Controller Worker - This subcomponent takes sanitized API commands
+           from the API controller and performs the actions necessary to
+           fulfill the API request.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           Health Manager - This subcomponent monitors individual amphorae
+           to ensure they are up and running, and otherwise healthy. It
+           also handles failover events if amphorae fail unexpectedly.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           Housekeeping Manager - This subcomponent cleans up stale (deleted)
+           database records, manages the spares pool, and manages amphora
+           certificate rotation.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           Driver Agent - The driver agent receives status and statistics
+           updates from provider drivers.
+         </para>
+       </listitem>
+     </itemizedlist>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term>network</term>
+    <listitem>
+     <para>
+       &octavia; cannot accomplish what it does without manipulating the
+       network environment. Amphorae are spun up with a network interface
+       on the <literal>load balancer network</literal>, and they may also
+       plug directly into tenant networks to reach back-end pool members,
+       depending on how any given load balancing service is deployed by
+       the tenant.
+     </para>
+    </listitem>
+   </varlistentry>
+ </variablelist>
+    <note>
+      <para>
+        As of the Pike release, we recommending running &octavia; as a standalone
+        load balancing solution. Neutron LBaaS is deprecated in the Queens
+        release, and &octavia; is its replacement. Whenever possible, operators
+        are strongly advised to migrate to &octavia;.
+        For further information on OpenStack Neutron LBaaS deprecation, refer
+        to https://wiki.openstack.org/wiki/Neutron/LBaaS/Deprecation.
+      </para>
+    </note>
+    <para>In accomplishing its role, &octavia; makes use of other OpenStack
+      projects:</para>
     <itemizedlist>
       <listitem>
         <para>
@@ -6039,7 +6135,7 @@ monitoring</guimenu>
       </listitem>
     </itemizedlist>
   <para>
-    The &octavia; component consists of following roles:
+    The &octavia; barclamp component consists of following roles:
   </para>
   <variablelist>
     <varlistentry>
@@ -6047,6 +6143,7 @@ monitoring</guimenu>
       <listitem>
         <para>
           The &octavia; API.
+          db layer.
         </para>
       </listitem>
     </varlistentry>
@@ -6059,11 +6156,30 @@ monitoring</guimenu>
       </listitem>
     </varlistentry>
   </variablelist>
-  <para>In neutron barclamp, the user has to select Load Balancer as a
+  <important>
+    <para>In the neutron barclamp, the user has to select Load Balancer as a
     Service to use &octavia;. &octavia; is not automatically deployed
     in &crow;.</para>
-<!-- Looks like I should put this in here now: https://jira.suse.com/browse/SOC-8726?focusedCommentId=933756&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-933756
-But I want to confirm with Matt Oliver first. AS -->
+  </important>
+  <sect2 xml:id="sec-depl-ostack-octavia-network">
+    <title>Networking</title>
+    <para>
+    </para>
+  </sect2>
+  <sect2 xml:id="sec-depl-ostack-octavia-certificates">
+    <title>Certificates</title>
+    <para>
+    </para>
+  </sect2>
+  <sect2 xml:id="sec-depl-ostack-octavia-raw-mode">
+    <title>Barclmap raw mode</title>
+    <para>
+      SSH keys
+    </para>
+    <para>
+      barclamp raw mode
+    </para>
+  </sect2>
  </sect1>
 
 <sect1 xml:id="sec-depl-ostack-ironic">
