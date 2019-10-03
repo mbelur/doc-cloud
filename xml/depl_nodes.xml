@@ -6026,6 +6026,7 @@ monitoring</guimenu>
            over the Oslo messaging bus.
          </para>
        </listitem>
+       <listitem>
          <para>
            API Controller - As the name implies, this subcomponent
            runs &octavia;’s API. It takes API requests, performs simple
@@ -6033,7 +6034,7 @@ monitoring</guimenu>
            over the Oslo messaging bus.
          </para>
        </listitem>
-       </listitem>
+       <listitem>
          <para>
            Controller Worker - This subcomponent takes sanitized API commands
            from the API controller and performs the actions necessary to
