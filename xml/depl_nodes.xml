@@ -5991,11 +5991,16 @@ monitoring</guimenu>
     &octavia; provides &productname; Load Balancing as a Service (LBaaS). It is
     used to manage a fleet of virtual machines, containers, or bare metal
     servers—collectively known as amphorae — which it spins up on demand.</para>
-  <para>The &ostack; &octavia; team has created a glossary of terms as they
-    are defined and used within the context of the &octavia; project and
-    Neutron LBaaS version 2. This glossary is available here:  <link
-    xlink:href="https://docs.openstack.org/octavia/latest/reference/glossary.html">Octavia Glossary</link>.</para>
-  <para>
+    <note>
+      <para>
+        As of the Pike release, we recommend running &octavia; as a standalone
+        load balancing solution. Neutron LBaaS is deprecated in the Queens
+        release, and &octavia; is its replacement. Whenever possible, operators
+        are strongly advised to migrate to &octavia;.
+        For further information on OpenStack Neutron LBaaS deprecation, refer
+        to https://wiki.openstack.org/wiki/Neutron/LBaaS/Deprecation.
+      </para>
+    </note>
     &octavia; consists of the following major components:
   </para>
   <variablelist>
@@ -6013,14 +6018,14 @@ monitoring</guimenu>
     <term>controller</term>
     <listitem>
      <para>
-       The Controller is the brains of &octavia;. It consists of five
-       sub-components, which are individual daemons. They can be run on
-       separate back-end infrastructure if desired:
+       The controller is the brains of &octavia;. It consists of five
+       sub-components as individual daemons. They can be run on
+       separate back-end infrastructure.
      </para>
      <itemizedlist>
        <listitem>
          <para>
-           API Controller - As the name implies, this subcomponent
+           The API Controller is a subcomponent that
            runs &octavia;’s API. It takes API requests, performs simple
            sanitizing on them, and ships them off to the controller worker
            over the Oslo messaging bus.
@@ -6028,36 +6033,28 @@ monitoring</guimenu>
        </listitem>
        <listitem>
          <para>
-           API Controller - As the name implies, this subcomponent
-           runs &octavia;’s API. It takes API requests, performs simple
-           sanitizing on them, and ships them off to the controller worker
-           over the Oslo messaging bus.
-         </para>
-       </listitem>
-       <listitem>
-         <para>
-           Controller Worker - This subcomponent takes sanitized API commands
+            The controller worker subcomponent takes sanitized API commands
            from the API controller and performs the actions necessary to
            fulfill the API request.
          </para>
        </listitem>
        <listitem>
          <para>
-           Health Manager - This subcomponent monitors individual amphorae
-           to ensure they are up and running, and otherwise healthy. It
+           The health manager subcomponent monitors individual amphorae
+           to ensure they are up and running, and healthy. It
            also handles failover events if amphorae fail unexpectedly.
          </para>
        </listitem>
        <listitem>
          <para>
-           Housekeeping Manager - This subcomponent cleans up stale (deleted)
+           The housekeeping manager subcomponent cleans up stale (deleted)
            database records, manages the spares pool, and manages amphora
            certificate rotation.
          </para>
        </listitem>
        <listitem>
          <para>
-           Driver Agent - The driver agent receives status and statistics
+           The driver agent subcomponent receives status and statistics
            updates from provider drivers.
          </para>
        </listitem>
@@ -6070,7 +6067,7 @@ monitoring</guimenu>
      <para>
        &octavia; cannot accomplish what it does without manipulating the
        network environment. Amphorae are spun up with a network interface
-       on the <literal>load balancer network</literal>, and they may also
+       on the <literal>load balancer network</literal>. They can also
        plug directly into tenant networks to reach back-end pool members,
        depending on how any given load balancing service is deployed by
        the tenant.
@@ -6078,16 +6075,11 @@ monitoring</guimenu>
     </listitem>
    </varlistentry>
  </variablelist>
-    <note>
-      <para>
-        As of the Pike release, we recommending running &octavia; as a standalone
-        load balancing solution. Neutron LBaaS is deprecated in the Queens
-        release, and &octavia; is its replacement. Whenever possible, operators
-        are strongly advised to migrate to &octavia;.
-        For further information on OpenStack Neutron LBaaS deprecation, refer
-        to https://wiki.openstack.org/wiki/Neutron/LBaaS/Deprecation.
-      </para>
-    </note>
+ <para>The &ostack; &octavia; team has created a glossary of terms used within
+   the context of the &octavia; project and Neutron LBaaS version 2.
+   This glossary is available here: <link
+   xlink:href="https://docs.openstack.org/octavia/latest/reference/glossary.html">Octavia Glossary</link>.</para>
+ <para>
     <para>In accomplishing its role, &octavia; makes use of other OpenStack
       projects:</para>
     <itemizedlist>
@@ -6112,7 +6104,7 @@ monitoring</guimenu>
       <listitem>
         <para>
           Keystone - For authentication against the Octavia API, and for
-          Octavia to authenticate with other OpenStack projects.
+          &octavia; to authenticate with other &ostack; projects.
         </para>
       </listitem>
       <listitem>
@@ -6123,13 +6115,13 @@ monitoring</guimenu>
       <listitem>
         <para>
           Oslo - For communication between Octavia controller components,
-          making Octavia work within the standard OpenStack framework and
+          making &octavia; work within the standard &ostack; framework and
           review system, and project code structure.
         </para>
       </listitem>
       <listitem>
         <para>
-          Taskflow - Is technically part of Oslo; however, Octavia makes
+          Taskflow - Is technically part of Oslo; however, &octavia; makes
           extensive use of this job flow system when orchestrating back-end
           service configuration and management.
         </para>
@@ -6144,7 +6136,6 @@ monitoring</guimenu>
       <listitem>
         <para>
           The &octavia; API.
-          db layer.
         </para>
       </listitem>
     </varlistentry>
@@ -6162,21 +6153,57 @@ monitoring</guimenu>
     Service to use &octavia;. &octavia; is not automatically deployed
     in &crow;.</para>
   </important>
-  <sect2 xml:id="sec-depl-ostack-octavia-network">
-    <title>Networking</title>
-    <para>
+  <sect2 xml:id="sec-depl-ostack-octavia-prereqs">
+    <title>Prerequisites</title>
+    <para>Octavia uses a load balancer network, <literal>lb_mgmt_net</literal>,
+    as a management network that the controller uses to communicate with the
+    amphorae. The amphorae that &octavia; deploys have interfaces and IP
+    addresses on this network. It’s important that the subnet deployed on this
+    network be sufficiently large to allow for the maximum number of amphorae
+    and controllers likely to be deployed throughout the lifespan of the cloud
+    installation.</para>
+    <para>At the present time, though IPv4 subnets are used by default for the
+    LB Network (for example: 172.16.0.0/12), IPv6 subnets can be used for the
+    LB Network. The LB Network is isolated from tenant networks on the amphorae by means
+    of network namespaces on the amphorae. Therefore, operators need not be
+    concerned about overlapping subnet ranges with tenant networks.</para>
+    <para>For more information, see the
+    <link xlink:href="https://docs.openstack.org/octavia/latest/contributor/guides/dev-quick-start.html#load-balancer-network-configuration">Load Balancer Network Configuration</link>
+    section from the &ostack; documentation.</para>
+    <para>By default the name is
+      <literal>lb_mgmt_net</literal>, this can be overridden in the
+      <literal>raw</literal> mode of the barclamp.</para>
+    <para>The backend services (deployed by the <literal>octavia-backend</literal> role)
+      needs to be able to talk to amphorae over the <literal>lb_mgmt_net</literal>.
+      Connect the <literal>lb_mgmt_net</literal> network to an external
+      network outside the cloud network, or a network that the backend can
+      connect through. Ensure the backend nodes know how to route to it.</para>
+    <para>Connect the network to a neutron router and ensure any physical
+      firewall rules are in place in order for the backend communitcation
+      to work.</para>
     </para>
   </sect2>
   <sect2 xml:id="sec-depl-ostack-octavia-certificates">
     <title>Certificates</title>
-    <para>
+    <para>Octavia administrators sets up certificate authorities for the two-way
+      TLS authentication used in Octavia for command and control of amphora.
+      For more information, see the
+      <link xlink:href="https://docs.openstack.org/octavia/latest/admin/guides/certificates.html">Octavia Certificate Configuration Guide</link>
+      or <xref linkend="self-assign-certs"/>.
     </para>
   </sect2>
   <sect2 xml:id="sec-depl-ostack-octavia-raw-mode">
     <title>Barclmap raw mode</title>
     <para>
-      SSH keys
+      If a user wants to be able to debug or get access to an amphora,
+      you can provide an SSH keyname to the barclamp via the
+      <literal>raw mode</literal>.
+      This is a keyname to a key that has been uploaded to openstack. For
+      example:
     </para>
+    <screen>
+      openstack keypair create --public-key /etc/octavia/.ssh/id_rsa_amphora.pub octavia_key
+    </screen>
     <para>
       barclamp raw mode
     </para>
