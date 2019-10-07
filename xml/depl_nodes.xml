@@ -6001,8 +6001,9 @@ monitoring</guimenu>
         to https://wiki.openstack.org/wiki/Neutron/LBaaS/Deprecation.
       </para>
     </note>
-    &octavia; consists of the following major components:
-  </para>
+    <para>
+      &octavia; consists of the following major components:
+    </para>
   <variablelist>
    <varlistentry>
     <term>amphorae</term>
@@ -6079,7 +6080,6 @@ monitoring</guimenu>
    the context of the &octavia; project and Neutron LBaaS version 2.
    This glossary is available here: <link
    xlink:href="https://docs.openstack.org/octavia/latest/reference/glossary.html">Octavia Glossary</link>.</para>
- <para>
     <para>In accomplishing its role, &octavia; makes use of other OpenStack
       projects:</para>
     <itemizedlist>
@@ -6181,7 +6181,6 @@ monitoring</guimenu>
     <para>Connect the network to a neutron router and ensure any physical
       firewall rules are in place in order for the backend communitcation
       to work.</para>
-    </para>
   </sect2>
   <sect2 xml:id="sec-depl-ostack-octavia-certificates">
     <title>Certificates</title>
