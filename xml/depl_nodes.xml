@@ -6188,7 +6188,7 @@ monitoring</guimenu>
       TLS authentication used in Octavia for command and control of amphora.
       For more information, see the
       <link xlink:href="https://docs.openstack.org/octavia/latest/admin/guides/certificates.html">Octavia Certificate Configuration Guide</link>
-      or <xref linkend="self-assign-certs"/>.
+<!--      or <xref linkend="self-assign-certs"/>-->.
     </para>
   </sect2>
   <sect2 xml:id="sec-depl-ostack-octavia-raw-mode">
