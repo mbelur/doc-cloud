@@ -5988,7 +5988,7 @@ monitoring</guimenu>
  <sect1 xml:id="sec-depl-ostack-octavia">
   <title>Deploying octavia</title>
   <para>
-    &octavia; provides &productname; Load Balancing as a Service (LBaaS). It is
+    &productname; provides &octavia; Load Balancing as a Service (LBaaS). It is
     used to manage a fleet of virtual machines, containers, or bare metal
     servers—collectively known as amphorae — which it spins up on demand.</para>
     <note>
