@@ -6034,7 +6034,7 @@ monitoring</guimenu>
        </listitem>
        <listitem>
          <para>
-            The controller worker subcomponent takes sanitized API commands
+           The controller worker subcomponent takes sanitized API commands
            from the API controller and performs the actions necessary to
            fulfill the API request.
          </para>
@@ -6155,7 +6155,7 @@ monitoring</guimenu>
   </important>
   <sect2 xml:id="sec-depl-ostack-octavia-prereqs">
     <title>Prerequisites</title>
-    <para>Octavia uses a load balancer network, <literal>lb_mgmt_net</literal>,
+    <para>Octavia uses a load balancer network, <literal>lb-mgmt-net</literal>,
     as a management network that the controller uses to communicate with the
     amphorae. The amphorae that &octavia; deploys have interfaces and IP
     addresses on this network. It’s important that the subnet deployed on this
@@ -6171,11 +6171,11 @@ monitoring</guimenu>
     <link xlink:href="https://docs.openstack.org/octavia/latest/contributor/guides/dev-quick-start.html#load-balancer-network-configuration">Load Balancer Network Configuration</link>
     section from the &ostack; documentation.</para>
     <para>By default the name is
-      <literal>lb_mgmt_net</literal>, this can be overridden in the
+      <literal>lb-mgmt-net</literal>, this can be overridden in the
       <literal>raw</literal> mode of the barclamp.</para>
     <para>The backend services (deployed by the <literal>octavia-backend</literal> role)
-      needs to be able to talk to amphorae over the <literal>lb_mgmt_net</literal>.
-      Connect the <literal>lb_mgmt_net</literal> network to an external
+      needs to be able to talk to amphorae over the <literal>lb-mgmt-net</literal>.
+      Connect the <literal>lb-mgmt-net</literal> network to an external
       network outside the cloud network, or a network that the backend can
       connect through. Ensure the backend nodes know how to route to it.</para>
     <para>Connect the network to a neutron router and ensure any physical
