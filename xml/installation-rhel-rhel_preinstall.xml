@@ -125,4 +125,10 @@ COMMIT
    support.
   </para>
  </section>
+ <section>
+  <title>PCI passthrough support not tested</title>
+  <para>
+   PCI pass-through has not been validated on &rhel; 
+  </para>
+ </section>
 </chapter>
